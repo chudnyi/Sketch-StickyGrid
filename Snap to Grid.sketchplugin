@@ -1,7 +1,9 @@
 // Snap to Grid (ctrl cmd g)
 
-(function() {
+(function(context) {
 
+  var doc = context.document;
+  var selection = context.selection;
   var app = [NSApplication sharedApplication];
   var grid_interval = doc.grid().gridSize();
 
@@ -20,12 +22,12 @@
       var abs_point = shape_layer.absolutePoint(point.point());
 
       var rel_x = compute_position(
-        artboard_frame.x() + abs_point.x,
-        grid_interval) - (artboard_frame.x() + abs_point.x);
+        artboard_frame.origin.x + abs_point.x,
+        grid_interval) - (artboard_frame.origin.x + abs_point.x);
 
       var rel_y = compute_position(
-        artboard_frame.y() + abs_point.y,
-        grid_interval) - (artboard_frame.y() + abs_point.y);
+        artboard_frame.origin.y + abs_point.y,
+        grid_interval) - (artboard_frame.origin.y + abs_point.y);
 
       var cg_point = shape_layer.relativePoint(
         CGPointMake(
@@ -60,4 +62,4 @@
     }
   }
 
-})();
+})(context);
